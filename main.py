@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-screen_size = width, height = (1200, 3000)
+screen_size = width, height = (820, 580)
 cell_size = 10
 fps = 10
 '''fps - количество обновлений жизни клетки в секунду
