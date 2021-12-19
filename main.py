@@ -30,6 +30,7 @@ class GameOfLife():
     def __init__(self, width, height, size):
         '''конструктор принимает ширину, высоту, размер, состояние, координаты по ox и oy
     '''
+        #   частичное заимствование
         self.width = width
         self.height = height
         self.size = size
@@ -37,6 +38,7 @@ class GameOfLife():
         self.width_posiition = self.width // size
         self.height_position = self.height // size
         self.rect = pygame.Rect(width, height, size, size)
+        #   конец частичного заимствования
 
     def Neighbors(self, cells):
         '''находит среди всех возможных соседних 8 клеток существующие
@@ -47,10 +49,12 @@ class GameOfLife():
         for neighbor in neighbors_list:
             neighbor[0] += self.width_posiition
             neighbor[1] += self.height_position
+            #   заимствование
             if neighbor[0] < 0 or neighbor[1] < 0 or neighbor[0] >= len(cells[0]) or neighbor[1] >= len(cells):
                 continue
             neighbors.append(cells[neighbor[1]][neighbor[0]])
         return neighbors
+            #   конец заимствования
 
     def update(self):
         '''обновляет состояние (жизнь/смерть) клетки, основываясь на количестве "соседей" этой клетки
@@ -79,12 +83,14 @@ class GameOfLife():
             if boarders:
                 pygame.draw.rect(display, boarders_colour, self.rect, 1)
 
+#   заимствование
 for i in range(columns):
     cells.append([GameOfLife(j*cell_size, i*cell_size, cell_size) for j in range(rows)])
 
 for columns in cells:
     for cell in columns:
         cell.neighbors = cell.Neighbors(cells)
+#   конец заимствования
 
 def draw():
     '''заполняет экран заданным цветом и отрисовывает клетки, обновляя экран
