@@ -27,9 +27,9 @@ columns = height // cell_size
 pygame.display.set_caption('Game Of Life')
 
 class GameOfLife():
-    '''конструктор принимает ширину, высоту, размер, состояние, координаты по ox и oy
-    '''
     def __init__(self, width, height, size):
+        '''конструктор принимает ширину, высоту, размер, состояние, координаты по ox и oy
+    '''
         self.width = width
         self.height = height
         self.size = size
@@ -38,10 +38,10 @@ class GameOfLife():
         self.height_position = self.height // size
         self.rect = pygame.Rect(width, height, size, size)
 
-    '''находит среди всех возможных соседних 8 клеток существующие
+    def Neighbors(self, cells):
+        '''находит среди всех возможных соседних 8 клеток существующие
     return положения всех существующих "соседей" клетки
     '''
-    def Neighbors(self, cells):
         neighbors = []
         neighbors_list = [[0, 1], [1, 0], [0,-1], [-1,0], [1,-1], [-1,1], [1, 1], [-1,-1]]
         for neighbor in neighbors_list:
@@ -52,9 +52,9 @@ class GameOfLife():
             neighbors.append(cells[neighbor[1]][neighbor[0]])
         return neighbors
 
-    '''обновляет состояние (жизнь/смерть) клетки
-    '''
     def update(self):
+        '''обновляет состояние (жизнь/смерть) клетки
+    '''
         living_neigbhors = 0
         for neighbor in self.neighbors:
             if neighbor.alive:
@@ -70,9 +70,9 @@ class GameOfLife():
             else:
                 self.continues_living = False
 
-    '''отрисовывает границы и клетки
-    '''
     def draw(self, display):
+        '''отрисовывает границы и клетки
+    '''
         if self.alive:
             pygame.draw.rect(display, cell_colour, self.rect)
         else:
@@ -86,9 +86,9 @@ for columns in cells:
     for cell in columns:
         cell.neighbors = cell.Neighbors(cells)
 
-'''заполняет экран цветом и отрисовывает клетки, обновляя экран
-'''
 def draw():
+    '''заполняет экран цветом и отрисовывает клетки, обновляя экран
+'''
     display.fill(display_colour)
 
     for row in cells:
