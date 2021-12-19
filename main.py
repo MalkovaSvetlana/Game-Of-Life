@@ -92,7 +92,7 @@ for columns in cells:
         cell.neighbors = cell.Neighbors(cells)
 #   конец заимствования
 
-def draw():
+def draw_display():
     '''заполняет экран заданным цветом и отрисовывает клетки, обновляя экран
 '''
     display.fill(display_colour)
