@@ -1,16 +1,16 @@
 import pygame
 import sys
 
+#   задание парметров экрана (ширина, высота), ращмера клетки, fps - количество обновлений жизни клетки в секунду
 screen_size = width, height = (820, 580)
 cell_size = 10
 fps = 10
-'''fps - количество обновлений жизни клетки в секунду
-'''
 
 screen = pygame.display.set_mode(screen_size)
 display = pygame.Surface(screen_size)
 clock = pygame.time.Clock()
 
+#   задание цвета для дисплея, границ и клеток
 display_colour = (0, 0, 0)
 boarders_colour = (20, 20, 20)
 cell_colour = (255, 255, 255)
@@ -53,7 +53,7 @@ class GameOfLife():
         return neighbors
 
     def update(self):
-        '''обновляет состояние (жизнь/смерть) клетки
+        '''обновляет состояние (жизнь/смерть) клетки, основываясь на количестве "соседей" этой клетки
     '''
         living_neigbhors = 0
         for neighbor in self.neighbors:
@@ -71,7 +71,7 @@ class GameOfLife():
                 self.continues_living = False
 
     def draw(self, display):
-        '''отрисовывает границы и клетки
+        '''отрисовывает границы и клетки на основе введённых цветов и размеров
     '''
         if self.alive:
             pygame.draw.rect(display, cell_colour, self.rect)
@@ -87,7 +87,7 @@ for columns in cells:
         cell.neighbors = cell.Neighbors(cells)
 
 def draw():
-    '''заполняет экран цветом и отрисовывает клетки, обновляя экран
+    '''заполняет экран заданным цветом и отрисовывает клетки, обновляя экран
 '''
     display.fill(display_colour)
 
@@ -116,11 +116,13 @@ while code:
                 cell.alive = cell.continues_living
 
     for event in pygame.event.get():
+        #   если происходит выход из программы, она закрывается и перестаёт работать
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
             
         if event.type == pygame.KEYDOWN:
+            #   если нажимается клавиша b, появляются (при нечётном количестве нажатий) и исчезают (при чётном) границы кеток
             if event.key == pygame.K_b:
                 boarders = not boarders
 
@@ -140,16 +142,20 @@ while code:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     playing = False
+                #   полностью удаляет все живые клетки с поля (происходит только в состоянии паузы)
                 if event.key == pygame.K_BACKSPACE:
                     for columns in cells:
                         for cell in columns:
                             cell.alive = False
 
             if left_mouse_button:
+                #   при нажатии лкм появляется новая живая клетка, на которую указывает курсор (происходит только в состоянии паузы)
                   cells[oy // cell_size][ox // cell_size].alive = True
             if right_mouse_button:
+                #   при нажатии пкм убирается живая клетка, на которую указывает курсор (происходит только в состоянии паузы)
                   cells[oy // cell_size][ox // cell_size].alive = False
         else:
+            #   при нажатии пробела (нечётное количество раз) программа начинает работать или, наоборот, встаёт на паузу (чётное количество нажатий)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     playing = True
